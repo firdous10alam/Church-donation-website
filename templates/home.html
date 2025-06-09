@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to Church Connect{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Welcome to Church Connect</h1>
+        <p class="lead">Join our community in faith, service, and fellowship</p>
+        <div class="mt-4">
+            <a href="/donate" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-donate me-1"></i> Make a Donation
+            </a>
+            <a href="/events" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-calendar-alt me-1"></i> View Events
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Our Community Features</h2>
+            <p class="lead">Connect, participate, and contribute to our church community</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-place-of-worship"></i>
+                        </div>
+                        <h3 class="card-title">Church Branches</h3>
+                        <p class="card-text">Discover our church branches, locations, and service times.</p>
+                        <a href="/branches" class="btn btn-outline-primary">Find a Branch</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3 class="card-title">Upcoming Events</h3>
+                        <p class="card-text">Stay informed about worship services, gatherings, and community events.</p>
+                        <a href="/events" class="btn btn-outline-primary">View Events</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3 class="card-title">Support Our Mission</h3>
+                        <p class="card-text">Contribute to our church's mission and community outreach programs.</p>
+                        <a href="/donate" class="btn btn-outline-primary">Make a Donation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Upcoming Events -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Upcoming Events</h2>
+            <a href="/events" class="btn btn-outline-primary">View All Events</a>
+        </div>
+        <div class="row g-4">
+            {% for event in upcoming_events %}
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <span class="badge bg-primary">{{ event.event_date.strftime('%b %d') }}</span>
+                                <span class="text-muted ms-2">{{ event.event_time.strftime('%I:%M %p') }}</span>
+                            </div>
+                            <span class="badge bg-info">{{ event.branch_name }}</span>
+                        </div>
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text text-truncate">{{ event.description }}</p>
+                        <a href="/event/{{ event.id }}" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">No upcoming events scheduled. Check back soon!</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Church Branches -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Our Branches</h2>
+            <a href="/branches" class="btn btn-outline-primary">View All Branches</a>
+        </div>
+        <div class="row g-4">
+            {% for branch in branches %}
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    {% if branch.image_url %}
+                    <img src="{{ branch.image_url }}" class="card-img-top" alt="{{ branch.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="bg-secondary" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-church text-light" style="font-size: 3rem;"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ branch.name }}</h5>
+                        <p class="card-text text-truncate">{{ branch.address }}</p>
+                        <p class="card-text">
+                            <i class="fas fa-user-alt me-1"></i> Pastor: {{ branch.pastor_name }}
+                        </p>
+                        <a href="/branch/{{ branch.id }}" class="btn btn-sm btn-primary">View Branch</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">No branches available at this time.</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Make a Donation - Church Connect{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Support Our Mission</h2>
+                    <p class="text-center text-muted">Your generous donation helps us continue our work in the community and spread our message of faith and love.</p>
+
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                    {% endif %}
+
+                    <form method="POST" action="/donate">
+                        <div class="mb-4">
+                            <label for="amount" class="form-label">Donation Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control form-control-lg" 
+                                       id="amount" name="amount" min="1" step="0.01" 
+                                       placeholder="Enter amount" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Donation Frequency</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                <input type="radio" class="btn-check" name="frequency" id="one-time" value="one-time" checked>
+                                <label class="btn btn-outline-primary" for="one-time">One-time</label>
+
+                                <input type="radio" class="btn-check" name="frequency" id="monthly" value="monthly">
+                                <label class="btn btn-outline-primary" for="monthly">Monthly</label>
+
+                                <input type="radio" class="btn-check" name="frequency" id="quarterly" value="quarterly">
+                                <label class="btn btn-outline-primary" for="quarterly">Quarterly</label>
+
+                                <input type="radio" class="btn-check" name="frequency" id="yearly" value="yearly">
+                                <label class="btn btn-outline-primary" for="yearly">Yearly</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="purpose" class="form-label">Purpose of Donation</label>
+                            <select class="form-select" id="purpose" name="purpose" required>
+                                <option value="">Select a purpose</option>
+                                <option value="General Fund">General Fund</option>
+                                <option value="Building Fund">Building Fund</option>
+                                <option value="Missions">Missions</option>
+                                <option value="Community Outreach">Community Outreach</option>
+                                <option value="Youth Programs">Youth Programs</option>
+                                <option value="Pastoral Support">Pastoral Support</option>
+                                <option value="Event Sponsorship">Event Sponsorship</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Payment Method</label>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <input type="radio" class="btn-check" name="payment_method" id="credit-card" value="Credit Card" checked>
+                                <label class="btn btn-outline-primary" for="credit-card">
+                                    <i class="fab fa-cc-visa me-1"></i>
+                                    <i class="fab fa-cc-mastercard me-1"></i>
+                                    Credit Card
+                                </label>
+
+                                <input type="radio" class="btn-check" name="payment_method" id="paypal" value="PayPal">
+                                <label class="btn btn-outline-primary" for="paypal">
+                                    <i class="fab fa-cc-paypal me-1"></i> PayPal
+                                </label>
+
+                                <input type="radio" class="btn-check" name="payment_method" id="bank-transfer" value="Bank Transfer">
+                                <label class="btn btn-outline-primary" for="bank-transfer">
+                                    <i class="fas fa-university me-1"></i> Bank Transfer
+                                </label>
+                            </div>
+
+                            <div class="card p-3">
+                                <div class="mb-3">
+                                    <label for="card-name" class="form-label">Name on Card</label>
+                                    <input type="text" class="form-control" id="card-name" placeholder="Full name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="card-number" class="form-label">Card Number</label>
+                                    <input type="text" class="form-control" id="card-number" placeholder="0000 0000 0000 0000">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="card-expiry" class="form-label">Expiration Date</label>
+                                        <input type="text" class="form-control" id="card-expiry" placeholder="MM/YY">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="card-cvv" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="card-cvv" placeholder="123">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous">
+                                <label class="form-check-label" for="anonymous">
+                                    Make this donation anonymous
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-donate me-2"></i> Make Donation
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}{{ event.title }} - Church Connect{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>{{ event.title }}</h1>
+                <a href="/events" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Events
+                </a>
+            </div>
+
+            <div class="card mb-4">
+                {% if event.image_url %}
+                <img src="{{ event.image_url }}" class="card-img-top" alt="{{ event.title }}">
+                {% else %}
+                <div class="bg-secondary text-center py-5">
+                    <i class="fas fa-calendar-alt fa-5x text-light"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <span class="badge bg-primary me-2">
+                                <i class="fas fa-calendar me-1"></i> {{ event.event_date.strftime('%b %d, %Y') }}
+                            </span>
+                            <span class="badge bg-info">
+                                <i class="fas fa-clock me-1"></i> {{ event.event_time.strftime('%I:%M %p') }}
+                            </span>
+                        </div>
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-map-marker-alt me-1"></i> {{ event.branch_name }}
+                        </span>
+                    </div>
+
+                    <h5 class="card-title">Event Details</h5>
+                    <div class="mb-4">
+                        {{ event.description }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <h6><i class="fas fa-map-marker-alt me-2"></i> Location</h6>
+                            <p>{{ event.branch_address }}</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-directions me-1"></i> Get Directions
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h6><i class="fas fa-user me-2"></i> Event Contact</h6>
+                            <p>Pastor John Smith<br>events@churchconnect.org<br>(555) 123-4567</p>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-primary btn-lg">
+                            <i class="fas fa-calendar-check me-2"></i> RSVP for This Event
+                        </button>
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-share-alt me-2"></i> Share This Event
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Event Information</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-calendar me-2"></i> Date</span>
+                            <span>{{ event.event_date.strftime('%B %d, %Y') }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-clock me-2"></i> Time</span>
+                            <span>{{ event.event_time.strftime('%I:%M %p') }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-map-marker-alt me-2"></i> Location</span>
+                            <span>{{ event.branch_name }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-users me-2"></i> Category</span>
+                            <span>Community Event</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-user me-2"></i> Organizer</span>
+                            <span>Church Connect</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Support This Event</h5>
+                </div>
+                <div class="card-body">
+                    <p>Your donations help us make events like this possible and accessible to everyone in our community.</p>
+                    <div class="d-grid">
+                        <a href="/donate?event={{ event.id }}" class="btn btn-primary">
+                            <i class="fas fa-donate me-1"></i> Donate to This Event
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Upcoming Events</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for upcoming in upcoming_events|slice(0,3) %}
+                        <a href="/event/{{ upcoming.id }}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ upcoming.title }}</h6>
+                                <small>{{ upcoming.event_date.strftime('%b %d') }}</small>
+                            </div>
+                            <p class="mb-1 small">{{ upcoming.branch_name }}</p>
+                        </a>
+                        {% else %}
+                        <div class="text-center py-3">
+                            <p class="text-muted mb-0">No other upcoming events</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="/events" class="btn btn-sm btn-outline-primary">
+                            View All Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
