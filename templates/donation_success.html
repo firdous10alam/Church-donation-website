@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Donation Successful - Church Connect{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-success">
+                <div class="card-body p-4 text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
+                        <h2>Thank You for Your Donation!</h2>
+                        <p class="lead">Your generous contribution has been successfully processed.</p>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body text-start">
+                            <h5 class="card-title">Donation Summary</h5>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">Transaction ID:</div>
+                                <div class="col-6">CHURCH{{ donation.id }}{{ donation.donation_date.strftime('%Y%m%d') }}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">Date:</div>
+                                <div class="col-6">{{ donation.donation_date.strftime('%B %d, %Y %I:%M %p') }}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">Amount:</div>
+                                <div class="col-6">${{ donation.amount }}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">Purpose:</div>
+                                <div class="col-6">{{ donation.purpose }}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">Payment Method:</div>
+                                <div class="col-6">{{ donation.payment_method }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="mb-4">A confirmation email has been sent to your registered email address.</p>
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="/dashboard" class="btn btn-outline-primary">
+                            <i class="fas fa-tachometer-alt me-2"></i> Go to Dashboard
+                        </a>
+                        <a href="/donations" class="btn btn-primary">
+                            <i class="fas fa-history me-2"></i> View Donation History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
