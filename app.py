@@ -15,7 +15,7 @@ def get_db_connection(db_name):
     try:
         return mysql.connector.connect(host="localhost",
                                        user="root",
-                                       password="PHW#84#jeorr",
+                                       password="church",
                                        database=db_name)
     except mysql.connector.Error as err:
         print(f"Database connection error: {err}")
