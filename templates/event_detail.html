@@ -25,10 +25,10 @@
                     <div class="d-flex justify-content-between mb-3">
                         <div>
                             <span class="badge bg-primary me-2">
-                                <i class="fas fa-calendar me-1"></i> {{ event.event_date.strftime('%b %d, %Y') }}
+                                <i class="fas fa-calendar me-1"></i> {{ event.event_date }}
                             </span>
                             <span class="badge bg-info">
-                                <i class="fas fa-clock me-1"></i> {{ event.event_time.strftime('%I:%M %p') }}
+                                <i class="fas fa-clock me-1"></i> {{ event.event_time }}
                             </span>
                         </div>
                         <span class="badge bg-secondary">
@@ -76,11 +76,11 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span><i class="fas fa-calendar me-2"></i> Date</span>
-                            <span>{{ event.event_date.strftime('%B %d, %Y') }}</span>
+                            <span>{{ event.event_date }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span><i class="fas fa-clock me-2"></i> Time</span>
-                            <span>{{ event.event_time.strftime('%I:%M %p') }}</span>
+                            <span>{{ event.event_time }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span><i class="fas fa-map-marker-alt me-2"></i> Location</span>
@@ -118,13 +118,13 @@
                 </div>
                 <div class="card-body">
                     <div class="list-group">
-                        {% for upcoming in upcoming_events|slice(0,3) %}
-                        <a href="/event/{{ upcoming.id }}" class="list-group-item list-group-item-action">
+                        {% for even in event %}
+                        <a href="/event/{{ even.id }}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">{{ upcoming.title }}</h6>
-                                <small>{{ upcoming.event_date.strftime('%b %d') }}</small>
+                                <h6 class="mb-1">{{ even.title }}</h6>
+                                <small>{{ even.event_date }}</small>
                             </div>
-                            <p class="mb-1 small">{{ upcoming.branch_name }}</p>
+                            <p class="mb-1 small">{{ even.branch_name }}</p>
                         </a>
                         {% else %}
                         <div class="text-center py-3">

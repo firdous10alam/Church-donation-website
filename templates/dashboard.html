@@ -14,7 +14,14 @@
                         </div>
                     </div>
                     <h4>{{ session['user_name'] }}</h4>
-                    <p class="text-muted">Member since {{ user.created_at.strftime('%b %d, %Y') }}</p>
+                    <p class="text-muted">
+                        Member since 
+                        {% if user and user.created_at %}
+                            {{ user.created_at.strftime('%b %d, %Y') }}
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </p>
 
                     <div class="d-grid mt-3">
                         <a href="/donate" class="btn btn-primary">
@@ -62,7 +69,7 @@
                             <tbody>
                                 {% for donation in donations %}
                                 <tr>
-                                    <td>{{ donation.donation_date.strftime('%b %d, %Y') }}</td>
+                                    <td>{{ donation.donation_date }}</td>
                                     <td>${{ donation.amount }}</td>
                                     <td>{{ donation.purpose }}</td>
                                     <td>
@@ -96,14 +103,28 @@
                     <h5 class="mb-0">Upcoming Events You Might Like</h5>
                 </div>
                 <div class="card-body">
+                    {% if upcoming_events %}
                     <div class="row">
-                        {% for event in upcoming_events|slice(0,2) %}
+                        <!-- FIXED: Using Python slicing instead of slice filter -->
+                        {% for event in upcoming_events[:2] %}
                         <div class="col-md-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between mb-2">
-                                        <span class="badge bg-primary">{{ event.event_date.strftime('%b %d') }}</span>
-                                        <span class="text-muted">{{ event.event_time.strftime('%I:%M %p') }}</span>
+                                        <span class="badge bg-primary">
+                                            {% if event.event_date %}
+                                                {{ event.event_date.split('-')[1] }}/{{ event.event_date.split('-')[2] }}
+                                            {% else %}
+                                                Date TBD
+                                            {% endif %}
+                                        </span>
+                                        <span class="text-muted">
+                                            {% if event.event_time %}
+                                                {{ event.event_time }}
+                                            {% else %}
+                                                Time TBD
+                                            {% endif %}
+                                        </span>
                                     </div>
                                     <h6 class="card-title">{{ event.title }}</h6>
                                     <p class="card-text small text-truncate">{{ event.description }}</p>
@@ -111,16 +132,15 @@
                                 </div>
                             </div>
                         </div>
-                        {% else %}
-                        <div class="col-12">
-                            <div class="text-center py-3">
-                                <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
-                                <p class="text-muted">No upcoming events at this time.</p>
-                                <a href="/events" class="btn btn-sm btn-primary">Browse Events</a>
-                            </div>
-                        </div>
                         {% endfor %}
                     </div>
+                    {% else %}
+                    <div class="text-center py-3">
+                        <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No upcoming events at this time.</p>
+                        <a href="/events" class="btn btn-sm btn-primary">Browse Events</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

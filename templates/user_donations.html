@@ -10,7 +10,7 @@
             <i class="fas fa-donate me-1"></i> Make New Donation
         </a>
     </div>
-
+    
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
             <h5 class="mb-0">Donation History</h5>
@@ -32,7 +32,7 @@
                     <tbody>
                         {% for donation in donations %}
                         <tr>
-                            <td>{{ donation.donation_date.strftime('%b %d, %Y') }}</td>
+                            <td>{{ donation.donation_date }}</td>
                             <td>${{ donation.amount }}</td>
                             <td>{{ donation.purpose }}</td>
                             <td>{{ donation.payment_method }}</td>
@@ -49,7 +49,7 @@
                     </tbody>
                 </table>
             </div>
-
+            
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <div class="text-muted">Showing {{ donations|length }} donations</div>
                 <div>
@@ -73,7 +73,7 @@
             {% endif %}
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -92,7 +92,7 @@
                             <h3>{{ donations|length }}</h3>
                         </div>
                     </div>
-
+                    
                     <div class="progress mb-3" style="height: 10px;">
                         <div class="progress-bar bg-success" role="progressbar" style="width: 75%"></div>
                     </div>
